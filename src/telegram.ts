@@ -2,6 +2,12 @@
 // Работает и вне Telegram (для локальной разработки в обычном браузере).
 
 type TGTheme = { button_color?: string; bg_color?: string; text_color?: string };
+type TGBackButton = {
+  show: () => void;
+  hide: () => void;
+  onClick: (cb: () => void) => void;
+  offClick: (cb: () => void) => void;
+};
 type TGWebApp = {
   ready: () => void;
   expand: () => void;
@@ -9,6 +15,7 @@ type TGWebApp = {
   setHeaderColor?: (c: string) => void;
   CloudStorage?: unknown;
   close?: () => void;
+  BackButton?: TGBackButton;
 };
 
 export function getWebApp(): TGWebApp | null {

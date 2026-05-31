@@ -2,27 +2,29 @@ import React from 'react';
 import type { Tokens } from '../theme';
 import { Icon } from '../icons';
 
-export function TGHeader({ T, subtitle = 'мини-приложение', onClose }: {
-  T: Tokens; subtitle?: string; onClose?: () => void;
+export function TGHeader({ T, subtitle = 'тренажёр ЦТ/ЦЭ' }: {
+  T: Tokens; subtitle?: string;
 }) {
   return (
     <div style={{
-      flexShrink: 0, height: 52, display: 'flex', alignItems: 'center',
-      padding: '0 8px 0 12px', background: '#fff',
-      borderBottom: `0.5px solid ${T.line}`, position: 'relative', zIndex: 5,
+      flexShrink: 0,
+      height: 'calc(52px + env(safe-area-inset-top))',
+      display: 'flex',
+      alignItems: 'flex-end',
+      justifyContent: 'center',
+      padding: '0 16px 8px',
+      paddingTop: 'env(safe-area-inset-top)',
+      background: '#fff',
+      borderBottom: `0.5px solid ${T.line}`,
+      position: 'relative',
+      zIndex: 5,
     }}>
-      <button onClick={onClose} style={{ background: 'none', border: 'none', padding: 8, cursor: 'pointer', display: 'flex' }}>
-        <Icon.Close />
-      </button>
-      <div style={{ flex: 1, textAlign: 'center', lineHeight: 1.1 }}>
+      <div style={{ textAlign: 'center', lineHeight: 1.1 }}>
         <div style={{ fontSize: 16, fontWeight: 700, color: T.ink, letterSpacing: 0.2 }}>
           реша<span style={{ color: T.accent }}>й</span>
         </div>
         <div style={{ fontSize: 11.5, color: T.faint, marginTop: 1 }}>{subtitle}</div>
       </div>
-      <button style={{ background: 'none', border: 'none', padding: 8, cursor: 'pointer', display: 'flex' }}>
-        <Icon.Dots />
-      </button>
     </div>
   );
 }

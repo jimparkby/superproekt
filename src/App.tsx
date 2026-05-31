@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { tokens, ACCENT_DEFAULT, HAND_DEFAULT } from './theme';
 import type { Subject, Topic } from './data';
 import { initTelegram, getWebApp } from './telegram';
@@ -23,6 +23,25 @@ export default function App() {
     const v = localStorage.getItem('reshai_streak');
     return v ? Number(v) : 5;
   });
+
+  const isHome = tab === 'train' && screen === 'subjects';
+
+  useEffect(() => {
+    const wa = getWebApp();
+    if (!wa?.BackButton) return;
+    if (isHome) {
+      wa.BackButton.hide();
+    } else {
+      wa.BackButton.show();
+      const handler = () => {
+        if (tab === 'homework') { setTab('train'); setScreen('subjects'); }
+        else if (screen === 'task') setScreen('topics');
+        else if (screen === 'topics') setScreen('subjects');
+      };
+      wa.BackButton.onClick(handler);
+      return () => { wa.BackButton?.offClick(handler); };
+    }
+  }, [isHome, tab, screen]);
 
   const markDone = () => {
     if (!subject || !topic) return;
@@ -58,7 +77,7 @@ export default function App() {
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', fontFamily: T.font, background: T.page }}>
-      <TGHeader T={T} onClose={() => getWebApp()?.close?.()} />
+      <TGHeader T={T} />
       <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', overflowY: scrollable ? 'auto' : 'hidden', background: T.page }}>
         {body}
       </div>
