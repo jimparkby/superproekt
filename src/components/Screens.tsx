@@ -12,7 +12,7 @@ export function SubjectsScreen({ T, streak, progress, onPick }: {
   T: Tokens; streak: number; progress: Progress; onPick: (s: Subject) => void;
 }) {
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', padding: '18px 16px 0' }}>
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '18px 16px 0' }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 18, flexShrink: 0 }}>
         <div>
           <div style={{ fontSize: 26, fontWeight: 800, color: T.ink, letterSpacing: -0.3 }}>Тренировка</div>
@@ -61,7 +61,7 @@ export function TopicsScreen({ T, subject, progress, onBack, onPick }: {
   T: Tokens; subject: Subject; progress: Progress; onBack: () => void; onPick: (t: Topic) => void;
 }) {
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', padding: '6px 0 0' }}>
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '6px 0 0' }}>
       <div style={{ display: 'flex', alignItems: 'center', padding: '8px 8px 12px', flexShrink: 0 }}>
         <button onClick={onBack} style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 2, padding: 6 }}>
           <Icon.Back c={T.accent} /><span style={{ color: T.accent, fontSize: 16 }}>Предметы</span>
