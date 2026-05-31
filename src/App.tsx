@@ -75,7 +75,7 @@ export default function App() {
   const showNav = !(tab === 'train' && screen === 'task');
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', fontFamily: T.font, background: T.page }}>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', fontFamily: T.font, background: T.page, paddingTop: 'var(--tg-safe-top, 0px)', paddingBottom: 'var(--tg-safe-bottom, 0px)' }}>
       <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden', background: T.page }}>
         {body}
       </div>
