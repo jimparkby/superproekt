@@ -31,7 +31,6 @@ export function initTelegram(): { accent: string } {
   try {
     wa.ready();
     wa.expand();
-    wa.requestFullscreen?.();
     wa.setBackgroundColor?.('#eef0f4');
   } catch {
     /* noop */
