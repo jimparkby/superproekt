@@ -3,14 +3,19 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-html, body, #root {
+html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  width: 100%;
   overflow: hidden;
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
+}
+
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: var(--tg-viewport-stable-height, 100dvh);
+  overflow: hidden;
 }
 
 button {
