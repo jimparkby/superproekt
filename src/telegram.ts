@@ -13,6 +13,7 @@ type TGWebApp = {
   expand: () => void;
   themeParams?: TGTheme;
   setHeaderColor?: (c: string) => void;
+  setBackgroundColor?: (c: string) => void;
   CloudStorage?: unknown;
   close?: () => void;
   BackButton?: TGBackButton;
@@ -29,6 +30,8 @@ export function initTelegram(): { accent: string } {
   try {
     wa.ready();
     wa.expand();
+    wa.setHeaderColor?.('#ffffff');
+    wa.setBackgroundColor?.('#eef0f4');
   } catch {
     /* noop */
   }

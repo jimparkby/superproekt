@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { tokens, ACCENT_DEFAULT, HAND_DEFAULT } from './theme';
 import type { Subject, Topic } from './data';
 import { initTelegram, getWebApp } from './telegram';
-import { TGHeader, BottomNav } from './components/Chrome';
+import { BottomNav } from './components/Chrome';
 import type { Tab } from './components/Chrome';
 import { SubjectsScreen, TopicsScreen, HomeworkScreen } from './components/Screens';
 import { TaskScreen } from './components/TaskScreen';
@@ -77,7 +77,6 @@ export default function App() {
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', fontFamily: T.font, background: T.page }}>
-      <TGHeader T={T} />
       <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', overflowY: scrollable ? 'auto' : 'hidden', background: T.page }}>
         {body}
       </div>
