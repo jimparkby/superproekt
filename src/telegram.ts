@@ -11,6 +11,7 @@ type TGBackButton = {
 type TGWebApp = {
   ready: () => void;
   expand: () => void;
+  requestFullscreen?: () => void;
   themeParams?: TGTheme;
   setHeaderColor?: (c: string) => void;
   setBackgroundColor?: (c: string) => void;
@@ -30,7 +31,7 @@ export function initTelegram(): { accent: string } {
   try {
     wa.ready();
     wa.expand();
-    wa.setHeaderColor?.('#ffffff');
+    wa.requestFullscreen?.();
     wa.setBackgroundColor?.('#eef0f4');
   } catch {
     /* noop */
