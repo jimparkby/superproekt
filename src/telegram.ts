@@ -7,7 +7,9 @@ type TGBackButton = {
   onClick: (cb: () => void) => void;
   offClick: (cb: () => void) => void;
 };
+export type TGUser = { id: number; first_name: string; last_name?: string; username?: string };
 type TGWebApp = {
+  initDataUnsafe?: { user?: TGUser };
   ready: () => void;
   expand: () => void;
   requestFullscreen?: () => void;
@@ -27,6 +29,15 @@ type TGWebApp = {
 export function getWebApp(): TGWebApp | null {
   const w = window as unknown as { Telegram?: { WebApp?: TGWebApp } };
   return w.Telegram?.WebApp ?? null;
+}
+
+export function getTelegramUser(): TGUser | null {
+  return getWebApp()?.initDataUnsafe?.user ?? null;
+}
+
+export function getTelegramUserId(): string {
+  const user = getTelegramUser();
+  return user ? String(user.id) : 'dev_user';
 }
 
 function applySafeArea(wa: TGWebApp) {

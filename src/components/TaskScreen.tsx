@@ -9,8 +9,10 @@ import { SolutionPanel } from './SolutionPanel';
 
 type Choice = number | number[] | string | null;
 
-export function TaskScreen({ T, subject, topic, onExit, onComplete }: {
-  T: Tokens; subject: Subject; topic: Topic; onExit: () => void; onComplete: () => void;
+export function TaskScreen({ T, subject, topic, onExit, onComplete, onTaskAnswer }: {
+  T: Tokens; subject: Subject; topic: Topic;
+  onExit: () => void; onComplete: () => void;
+  onTaskAnswer?: (taskId: string, correct: boolean) => void;
 }) {
   const tasks = topic.tasks!;
   const [idx, setIdx] = useState(0);
@@ -49,6 +51,7 @@ export function TaskScreen({ T, subject, topic, onExit, onComplete }: {
     setSubmitted(true);
     if (!ok) setShowSol(true);
     setResults((r) => [...r, ok]);
+    onTaskAnswer?.(task.id, ok);
   };
 
   const next = () => {

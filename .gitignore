@@ -2,3 +2,7 @@ node_modules
 dist
 .env
 .env.local
+.vercel
+backend/reshai.db
+__pycache__/
+*.pyc

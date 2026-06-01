@@ -29,10 +29,10 @@ export function TGHeader({ T, subtitle = 'тренажёр ЦТ/ЦЭ' }: {
   );
 }
 
-export type Tab = 'train' | 'homework';
+export type Tab = 'train' | 'homework' | 'profile';
 
 export function BottomNav({ T, tab, onTab }: { T: Tokens; tab: Tab; onTab: (t: Tab) => void }) {
-  const item = (id: Tab, label: string, IconCmp: (p: { c?: string }) => React.ReactElement) => {
+  const item = (id: Tab, label: string, IconCmp: (p: { s?: number; c?: string }) => React.ReactElement) => {
     const on = tab === id;
     const c = on ? T.accent : '#9aa0a8';
     return (
@@ -53,6 +53,7 @@ export function BottomNav({ T, tab, onTab }: { T: Tokens; tab: Tab; onTab: (t: T
     }}>
       {item('train', 'Тренировка', Icon.Dumbbell)}
       {item('homework', 'Домашка', Icon.Book)}
+      {item('profile', 'Профиль', Icon.Person)}
     </div>
   );
 }
