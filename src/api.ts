@@ -31,6 +31,22 @@ export async function apiRecordTaskResult(
   });
 }
 
+export async function apiFetchTopicsDone(userId: string): Promise<Record<string, Set<string>>> {
+  const { data, error } = await supabase
+    .from('topic_done')
+    .select('subject_id, topic_id')
+    .eq('user_id', userId);
+
+  if (error || !data) return {};
+
+  const progress: Record<string, Set<string>> = {};
+  for (const row of data) {
+    if (!progress[row.subject_id]) progress[row.subject_id] = new Set();
+    progress[row.subject_id].add(row.topic_id);
+  }
+  return progress;
+}
+
 export async function apiFetchProfile(userId: string): Promise<ProfileStats | null> {
   const [topicsRes, tasksRes] = await Promise.all([
     supabase.from('topic_done').select('subject_id').eq('user_id', userId),

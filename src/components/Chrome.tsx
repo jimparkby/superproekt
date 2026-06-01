@@ -49,7 +49,7 @@ export function BottomNav({ T, tab, onTab }: { T: Tokens; tab: Tab; onTab: (t: T
     <div style={{
       flexShrink: 0, display: 'flex', background: '#fff',
       borderTop: `0.5px solid ${T.line}`,
-      paddingBottom: 'max(10px, env(safe-area-inset-bottom))',
+      paddingBottom: 'calc(6px + var(--tg-safe-bottom, env(safe-area-inset-bottom, 0px)))',
     }}>
       {item('train', 'Тренировка', Icon.Dumbbell)}
       {item('homework', 'Домашка', Icon.Book)}

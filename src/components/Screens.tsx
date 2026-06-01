@@ -11,17 +11,13 @@ import type { TGUser } from '../telegram';
 
 type Progress = Record<string, Set<string>>;
 
-export function SubjectsScreen({ T, streak, progress, onPick }: {
-  T: Tokens; streak: number; progress: Progress; onPick: (s: Subject) => void;
+export function SubjectsScreen({ T, progress, onPick }: {
+  T: Tokens; progress: Progress; onPick: (s: Subject) => void;
 }) {
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '18px 16px 0' }}>
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 18, flexShrink: 0 }}>
-        <div>
-          <div style={{ fontSize: 26, fontWeight: 800, color: T.ink, letterSpacing: -0.3 }}>Тренировка</div>
-          <div style={{ fontSize: 14, color: T.sub, marginTop: 3 }}>Подготовка к ЦТ / ЦЭ</div>
-        </div>
-        <div style={{ marginTop: 4 }}><StreakChip days={streak} /></div>
+      <div style={{ marginBottom: 18, flexShrink: 0 }}>
+        <div style={{ fontSize: 26, fontWeight: 800, color: T.ink, letterSpacing: -0.3 }}>Тренировка</div>
       </div>
 
       <div style={{ fontSize: 12.5, fontWeight: 600, color: T.faint, textTransform: 'uppercase', letterSpacing: 0.4, margin: '4px 4px 10px', flexShrink: 0 }}>

@@ -7,7 +7,7 @@ import type { Tab } from './components/Chrome';
 import { SubjectsScreen, TopicsScreen, HomeworkScreen, ProfileScreen } from './components/Screens';
 import { TaskScreen } from './components/TaskScreen';
 import { NotebookScreen } from './components/NotebookScreen';
-import { apiMarkTopicDone, apiRecordTaskResult } from './api';
+import { apiMarkTopicDone, apiRecordTaskResult, apiFetchTopicsDone } from './api';
 
 type Screen = 'subjects' | 'topics' | 'task' | 'notebook';
 type Progress = Record<string, Set<string>>;
@@ -21,14 +21,16 @@ export default function App() {
   const [subject, setSubject] = useState<Subject | null>(null);
   const [topic, setTopic] = useState<Topic | null>(null);
   const [progress, setProgress] = useState<Progress>({});
-  const [streak] = useState<number>(() => {
-    const v = localStorage.getItem('reshai_streak');
-    return v ? Number(v) : 5;
-  });
   const [taskStats, setTaskStats] = useState({ total: 0, correct: 0 });
 
   const userId = useMemo(() => getTelegramUserId(), []);
   const tgUser = useMemo(() => getTelegramUser(), []);
+
+  useEffect(() => {
+    apiFetchTopicsDone(userId).then((saved) => {
+      if (Object.keys(saved).length > 0) setProgress(saved);
+    });
+  }, [userId]);
 
   const isHome = tab === 'train' && screen === 'subjects';
 
@@ -109,7 +111,7 @@ export default function App() {
     );
   } else {
     body = (
-      <SubjectsScreen T={T} streak={streak} progress={progress}
+      <SubjectsScreen T={T} progress={progress}
         onPick={(sub) => { setSubject(sub); setScreen('topics'); }} />
     );
   }
@@ -117,7 +119,7 @@ export default function App() {
   const showNav = !(tab === 'train' && (screen === 'task' || screen === 'notebook'));
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', fontFamily: T.font, background: T.page, paddingTop: 'var(--tg-safe-top, 0px)', paddingBottom: 'var(--tg-safe-bottom, 0px)' }}>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', fontFamily: T.font, background: T.page, paddingTop: 'var(--tg-safe-top, 0px)' }}>
       <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden', background: T.page }}>
         {body}
       </div>
