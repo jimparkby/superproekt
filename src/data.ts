@@ -35,6 +35,7 @@ export interface Topic {
   locked?: boolean;
   section?: string;
   notebook?: boolean;
+  pdfUrl?: string;
 }
 
 export interface Subject {
@@ -530,9 +531,28 @@ export const SUBJECTS: Subject[] = [
       { id: 'conservation', name: 'Законы сохранения', blurb: 'Импульс и энергия', section: 'Темы', tasks: PHYSICS_CONSERVATION },
       { id: 'p-kinematics', name: 'Кинематика', blurb: 'Скоро', locked: true },
       { id: 'p-thermo', name: 'Молекулярная физика', blurb: 'Скоро', locked: true },
-      { id: 'ct-2020', name: 'ЦТ 2020', blurb: 'Механика, МКТ, электростатика, оптика · 6 задач', section: 'Тесты прошлых лет', tasks: CT_2020_TASKS },
-      { id: 'ct-2015', name: 'ЦТ 2015', blurb: 'Акустика, термодинамика, магнетизм, ядерная · 6 задач', tasks: CT_2015_TASKS },
-      { id: 'ct-2013', name: 'ЦТ 2013', blurb: 'Кинематика, МКТ, электричество, ядерная · 6 задач', tasks: CT_2013_TASKS },
+      { id: 'ct-2025', name: 'ЦЭ/ЦТ 2025', blurb: 'Полный вариант · PDF', section: 'Тесты прошлых лет', pdfUrl: '/tests/ct-2025.pdf' },
+      { id: 'ct-2024', name: 'ЦЭ/ЦТ 2024', blurb: 'Полный вариант · PDF', pdfUrl: '/tests/ct-2024.pdf' },
+      { id: 'ct-2023', name: 'ЦЭ/ЦТ 2023', blurb: 'Полный вариант · PDF', pdfUrl: '/tests/ct-2023.pdf' },
+      { id: 'ct-2022', name: 'ЦТ 2022', blurb: 'Полный вариант · PDF', pdfUrl: '/tests/ct-2022.pdf' },
+      { id: 'ct-2021', name: 'ЦТ 2021', blurb: 'Полный вариант · PDF', pdfUrl: '/tests/ct-2021.pdf' },
+      { id: 'ct-2020', name: 'ЦТ 2020', blurb: 'Механика, МКТ, электростатика, оптика · 6 задач + PDF', tasks: CT_2020_TASKS, pdfUrl: '/tests/ct-2020.pdf' },
+      { id: 'ct-2019', name: 'ЦТ 2019', blurb: 'Полный вариант · PDF', pdfUrl: '/tests/ct-2019.pdf' },
+      { id: 'ct-2018', name: 'ЦТ 2018', blurb: 'Полный вариант · PDF', pdfUrl: '/tests/ct-2018.pdf' },
+      { id: 'ct-2017', name: 'ЦТ 2017', blurb: 'Полный вариант · PDF', pdfUrl: '/tests/ct-2017.pdf' },
+      { id: 'ct-2016', name: 'ЦТ 2016', blurb: 'Полный вариант · PDF', pdfUrl: '/tests/ct-2016.pdf' },
+      { id: 'ct-2015', name: 'ЦТ 2015', blurb: 'Акустика, термодинамика, магнетизм, ядерная · 6 задач + PDF', tasks: CT_2015_TASKS, pdfUrl: '/tests/ct-2015.pdf' },
+      { id: 'ct-2014', name: 'ЦТ 2014', blurb: 'Полный вариант · PDF', pdfUrl: '/tests/ct-2014.pdf' },
+      { id: 'ct-2013', name: 'ЦТ 2013', blurb: 'Кинематика, МКТ, электричество, ядерная · 6 задач + PDF', tasks: CT_2013_TASKS, pdfUrl: '/tests/ct-2013.pdf' },
+      { id: 'ct-2012', name: 'ЦТ 2012', blurb: 'Полный вариант · PDF', pdfUrl: '/tests/ct-2012.pdf' },
+      { id: 'ct-2011', name: 'ЦТ 2011', blurb: 'Полный вариант · PDF', pdfUrl: '/tests/ct-2011.pdf' },
+      { id: 'ct-2010', name: 'ЦТ 2010', blurb: 'Полный вариант · PDF', pdfUrl: '/tests/ct-2010.pdf' },
+      { id: 'ct-2009', name: 'ЦТ 2009', blurb: 'Полный вариант · PDF', pdfUrl: '/tests/ct-2009.pdf' },
+      { id: 'ct-2008', name: 'ЦТ 2008', blurb: 'Полный вариант · PDF', pdfUrl: '/tests/ct-2008.pdf' },
+      { id: 'ct-2007', name: 'ЦТ 2007', blurb: 'Полный вариант · PDF', pdfUrl: '/tests/ct-2007.pdf' },
+      { id: 'ct-2006', name: 'ЦТ 2006', blurb: 'Полный вариант · PDF', pdfUrl: '/tests/ct-2006.pdf' },
+      { id: 'ct-2005', name: 'ЦТ 2005', blurb: 'Полный вариант · PDF', pdfUrl: '/tests/ct-2005.pdf' },
+      { id: 'ct-2004', name: 'ЦТ 2004', blurb: 'Полный вариант · PDF', pdfUrl: '/tests/ct-2004.pdf' },
     ],
   },
   {

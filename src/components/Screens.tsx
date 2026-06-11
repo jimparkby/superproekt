@@ -107,6 +107,7 @@ export function TopicsScreen({ T, subject, progress, onBack, onPick }: {
                 const locked = !!tp.locked;
                 const done = progress[subject.id]?.has(tp.id);
                 const isNotebook = !!tp.notebook;
+                const isPdf = !!tp.pdfUrl && !tp.tasks;
 
                 return (
                   <button key={tp.id} disabled={locked} onClick={() => onPick(tp)} style={{
@@ -122,6 +123,8 @@ export function TopicsScreen({ T, subject, progress, onBack, onPick }: {
                     }}>
                       {locked ? <Icon.Lock /> : isNotebook ? (
                         <Icon.Book s={20} c={subject.tint} />
+                      ) : isPdf ? (
+                        <Icon.Pdf s={20} c={subject.tint} />
                       ) : done ? (
                         <div style={{ width: 22, height: 22, borderRadius: 999, background: T.good, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                           <Icon.Check s={15} />

@@ -73,6 +73,13 @@ export const Icon = {
       <path d="M4 20c0-3.866 3.582-7 8-7s8 3.134 8 7" />
     </svg>
   ),
+  Pdf: ({ s = 18, c = '#8b9098' }: IconProps) => (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
+      <path d="M14 2v6h6" />
+      <path d="M9 13h1.5a1.5 1.5 0 0 1 0 3H9v-3ZM9 16v2M14 13v5M17 13h-2v2h2M17 15h-2" />
+    </svg>
+  ),
   Trophy: ({ s = 22, c = '#e07a2e' }: IconProps) => (
     <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M8 21h8M12 17v4M7 4H4a1 1 0 0 0-1 1v3a4 4 0 0 0 4 4h1M17 4h3a1 1 0 0 1 1 1v3a4 4 0 0 1-4 4h-1" />

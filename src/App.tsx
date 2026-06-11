@@ -7,9 +7,10 @@ import type { Tab } from './components/Chrome';
 import { SubjectsScreen, TopicsScreen, HomeworkScreen, ProfileScreen } from './components/Screens';
 import { TaskScreen } from './components/TaskScreen';
 import { NotebookScreen } from './components/NotebookScreen';
+import { PdfScreen } from './components/PdfScreen';
 import { apiMarkTopicDone, apiRecordTaskResult, apiFetchTopicsDone } from './api';
 
-type Screen = 'subjects' | 'topics' | 'task' | 'notebook';
+type Screen = 'subjects' | 'topics' | 'task' | 'notebook' | 'pdf';
 type Progress = Record<string, Set<string>>;
 
 export default function App() {
@@ -42,7 +43,7 @@ export default function App() {
     } else {
       wa.BackButton.show();
       const handler = () => {
-        if (screen === 'task' || screen === 'notebook') setScreen('topics');
+        if (screen === 'task' || screen === 'notebook' || screen === 'pdf') setScreen('topics');
         else if (screen === 'topics') setScreen('subjects');
       };
       wa.BackButton.onClick(handler);
@@ -90,6 +91,8 @@ export default function App() {
     );
   } else if (screen === 'notebook') {
     body = <NotebookScreen T={T} onBack={() => setScreen('topics')} />;
+  } else if (screen === 'pdf' && topic) {
+    body = <PdfScreen T={T} topic={topic} onBack={() => setScreen('topics')} />;
   } else if (screen === 'task' && subject && topic) {
     body = (
       <TaskScreen
@@ -106,6 +109,7 @@ export default function App() {
         onPick={(tp) => {
           setTopic(tp);
           if (tp.notebook) setScreen('notebook');
+          else if (tp.pdfUrl && !tp.tasks) setScreen('pdf');
           else setScreen('task');
         }} />
     );
@@ -116,7 +120,7 @@ export default function App() {
     );
   }
 
-  const showNav = !(tab === 'train' && (screen === 'task' || screen === 'notebook'));
+  const showNav = !(tab === 'train' && (screen === 'task' || screen === 'notebook' || screen === 'pdf'));
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column', fontFamily: T.font, background: T.page, paddingTop: 'var(--tg-safe-top, 0px)' }}>
