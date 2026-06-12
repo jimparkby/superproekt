@@ -23,6 +23,7 @@ type TGWebApp = {
   offEvent?: (event: string, cb: () => void) => void;
   CloudStorage?: unknown;
   close?: () => void;
+  openLink?: (url: string) => void;
   BackButton?: TGBackButton;
 };
 
