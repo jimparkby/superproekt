@@ -69,7 +69,7 @@ export function TopicsScreen({ T, subject, progress, onBack, onPick }: {
   }
 
   return (
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '6px 0 0' }}>
+    <div style={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', padding: '6px 0 0' }}>
       <div style={{ display: 'flex', alignItems: 'center', padding: '8px 8px 12px', flexShrink: 0 }}>
         <button onClick={onBack} style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 2, padding: 6 }}>
           <Icon.Back c={T.accent} /><span style={{ color: T.accent, fontSize: 16 }}>Предметы</span>
