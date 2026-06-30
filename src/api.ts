@@ -1,9 +1,4 @@
-import { createClient } from '@supabase/supabase-js';
-
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
-const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 export interface ProfileStats {
   user_id: string;
@@ -15,58 +10,47 @@ export interface ProfileStats {
 }
 
 export async function apiMarkTopicDone(userId: string, subjectId: string, topicId: string) {
-  await supabase
-    .from('topic_done')
-    .upsert(
-      { user_id: userId, subject_id: subjectId, topic_id: topicId },
-      { onConflict: 'user_id,subject_id,topic_id', ignoreDuplicates: true },
-    );
+  await fetch(`${API_URL}/api/progress/topic`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ user_id: userId, subject_id: subjectId, topic_id: topicId }),
+  });
 }
 
 export async function apiRecordTaskResult(
   userId: string, subjectId: string, topicId: string, taskId: string, correct: boolean,
 ) {
-  await supabase.from('task_result').insert({
-    user_id: userId, subject_id: subjectId, topic_id: topicId, task_id: taskId, correct,
+  await fetch(`${API_URL}/api/progress/task`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ user_id: userId, subject_id: subjectId, topic_id: topicId, task_id: taskId, correct }),
   });
 }
 
 export async function apiFetchTopicsDone(userId: string): Promise<Record<string, Set<string>>> {
-  const { data, error } = await supabase
-    .from('topic_done')
-    .select('subject_id, topic_id')
-    .eq('user_id', userId);
+  try {
+    const res = await fetch(`${API_URL}/api/topics/${userId}`);
+    if (!res.ok) return {};
+    const data: Record<string, string[]> = await res.json();
 
-  if (error || !data) return {};
-
-  const progress: Record<string, Set<string>> = {};
-  for (const row of data) {
-    if (!progress[row.subject_id]) progress[row.subject_id] = new Set();
-    progress[row.subject_id].add(row.topic_id);
+    // Конвертируем массивы в Set
+    const progress: Record<string, Set<string>> = {};
+    for (const [subjectId, topicIds] of Object.entries(data)) {
+      progress[subjectId] = new Set(topicIds);
+    }
+    return progress;
+  } catch {
+    return {};
   }
-  return progress;
 }
 
 export async function apiFetchProfile(userId: string): Promise<ProfileStats | null> {
-  const [topicsRes, tasksRes] = await Promise.all([
-    supabase.from('topic_done').select('subject_id').eq('user_id', userId),
-    supabase.from('task_result').select('correct').eq('user_id', userId),
-  ]);
-
-  if (topicsRes.error || tasksRes.error) return null;
-
-  const topics = topicsRes.data ?? [];
-  const tasks  = tasksRes.data  ?? [];
-
-  const topicsDone   = topics.length;
-  const tasksTotal   = tasks.length;
-  const tasksCorrect = tasks.filter((t) => t.correct).length;
-  const correctPct   = tasksTotal > 0 ? Math.round(tasksCorrect / tasksTotal * 100) : 0;
-
-  const bySubject: Record<string, number> = {};
-  for (const t of topics) {
-    bySubject[t.subject_id] = (bySubject[t.subject_id] || 0) + 1;
+  try {
+    const res = await fetch(`${API_URL}/api/profile/${userId}`);
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data as ProfileStats;
+  } catch {
+    return null;
   }
-
-  return { user_id: userId, topics_done: topicsDone, tasks_total: tasksTotal, tasks_correct: tasksCorrect, correct_pct: correctPct, by_subject: bySubject };
 }

@@ -119,3 +119,24 @@ def get_profile(user_id: str):
         "correct_pct": correct_pct,
         "by_subject": by_subject,
     }
+
+
+@app.get("/api/topics/{user_id}")
+def get_topics_done(user_id: str):
+    with get_db() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT subject_id, topic_id FROM topic_done WHERE user_id = %s",
+                (user_id,),
+            )
+            topics = cur.fetchall()
+
+    # Группируем по subject_id
+    result: dict[str, list[str]] = {}
+    for row in topics:
+        sid = row["subject_id"]
+        if sid not in result:
+            result[sid] = []
+        result[sid].append(row["topic_id"])
+
+    return result
