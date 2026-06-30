@@ -53,6 +53,7 @@ CREATE INDEX IF NOT EXISTS idx_topic_done_user  ON topic_done(user_id);
 2. Импортируйте репозиторий GitHub
 3. Настройки проекта:
    - **Framework Preset**: Vite
+   - **Root Directory**: `frontend`
    - **Build Command**: `npm run build`
    - **Output Directory**: `dist`
 4. Добавьте переменную окружения:
@@ -81,6 +82,7 @@ uvicorn main:app --reload --port 8000
 ### Frontend
 
 ```bash
+cd frontend
 npm install
 echo "VITE_API_URL=http://localhost:8000" > .env
 npm run dev
