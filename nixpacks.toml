@@ -1,8 +1,5 @@
 [phases.setup]
-nixPkgs = ["python39"]
-
-[phases.install]
-cmds = ["pip install -r backend/requirements.txt"]
+nixPkgs = ["python310"]
 
 [start]
 cmd = "uvicorn backend.main:app --host 0.0.0.0 --port $PORT"
